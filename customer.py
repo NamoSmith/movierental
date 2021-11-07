@@ -1,5 +1,7 @@
+"""A customer computing program."""
+
+from movie import Movie
 from rental import Rental
-from movie import Movie, PriceCode
 
 
 class Customer:
@@ -11,6 +13,8 @@ class Customer:
     """
 
     def __init__(self, name: str):
+        """ Initialize a new customer."""
+
         self.name = name
         self.rentals = []
 
@@ -18,27 +22,30 @@ class Customer:
         if rental not in self.rentals:
             self.rentals.append(rental)
 
-    def get_name(self):
+    def get_name(self) -> str:
         return self.name
 
-    def statement(self):
+    def statement(self) -> str:
         """
             Print all the rentals in current period,
             along with total charges and reward points.
             Returns:
                 the statement as a String
         """
+
         total_amount = 0  # total charges
-        frequent_renter_points = 0
+        renter_point = 0
         statement = f"Rental Report for {self.name}\n\n"
         fmt = "{:32s}    {:4s} {:6s}\n"
         statement += fmt.format("Movie Title", "Days", "Price")
         fmt = "{:32s}   {:4d} {:6.2f}\n"
 
         for rental in self.rentals:
-            frequent_renter_points += rental.get_point()
+            # award renter points
+            renter_point = rental.get_renter_point(renter_point)
             #  add detail line to statement
-            statement += fmt.format(rental.get_movie().get_title(), rental.get_days_rented(), rental.get_price())
+            statement += fmt.format(rental.get_movie().get_title(),
+                                    rental.get_days_rented(), rental.get_price())
             # and accumulate activity
             total_amount += rental.get_price()
 
@@ -46,7 +53,8 @@ class Customer:
         statement += "\n"
         statement += "{:32s} {:6s} {:6.2f}\n".format(
             "Total Charges", "", total_amount)
-        statement += "Frequent Renter Points earned: {}\n".format(frequent_renter_points)
+        statement += "Frequent Renter Points earned: {}\n".format(
+            renter_point)
 
         return statement
 
@@ -54,8 +62,9 @@ class Customer:
 if __name__ == "__main__":
     customer = Customer("Edward Snowden")
     print(customer.statement())
-    movie = Movie("Hacker Noon", PriceCode.regular)
+    movie = Movie("Hacker Noon", "2014", ["Technology", "Action"])
     customer.add_rental(Rental(movie, 2))
-    movie = Movie("CitizenFour", PriceCode.new_release)
+    movie = Movie("CitizenFour", "2014", [
+                "Documentary", "Historical Documentary"])
     customer.add_rental(Rental(movie, 3))
     print(customer.statement())
