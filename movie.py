@@ -11,7 +11,7 @@ class PriceCode(Enum):
         "price": lambda days: 2 if days <= 2 else 2 + (1.5 * (days - 2)),
         "renter_point": lambda days: 1
     }
-    children = {
+    childrens = {
         "price": lambda days: 1.5 if days <= 3 else 1.5 + (1.5 * (days - 3)),
         "renter_point": lambda days: 1
     }

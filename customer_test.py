@@ -17,7 +17,7 @@ class CustomerTest(unittest.TestCase):
 		self.c = Customer("Movie Mogul")
 		self.new_movie = Movie("Mulan", PriceCode.new_release)
 		self.regular_movie = Movie("CitizenFour", PriceCode.regular)
-		self.children_movie = Movie("Frozen", PriceCode.children)
+		self.children_movie = Movie("Frozen", PriceCode.childrens)
 		
 	@unittest.skip("No convenient way to test")
 	def test_billing():

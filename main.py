@@ -10,7 +10,7 @@ def make_movies():
     movies = [
         Movie("The Irishman", PriceCode.new_release),
         Movie("CitizenFour", PriceCode.regular),
-        Movie("Frozen", PriceCode.children),
+        Movie("Frozen", PriceCode.childrens),
         Movie("El Camino", PriceCode.new_release),
         Movie("Particle Fever", PriceCode.regular)
     ]
